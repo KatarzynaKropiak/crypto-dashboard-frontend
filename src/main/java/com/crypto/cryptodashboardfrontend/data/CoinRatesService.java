@@ -2,15 +2,11 @@ package com.crypto.cryptodashboardfrontend.data;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.vaadin.flow.data.provider.DataProvider;
 
 @SuppressWarnings("serial")
 @Service
@@ -19,61 +15,61 @@ public class CoinRatesService implements Serializable {
 	@Value("${server.port}")
 	private String serverPort;
 
-	public SimpleRateDTO getSimpleRate(String coinId, String currency) {
+	public SimpleRateDto getSimpleRate(String coinId, String currency) {
 
 		final RequestHeadersSpec<?> spec = WebClient.create().get()
 				.uri("http://localhost:8080/v1/crypto/rates?coinId="+ coinId + "&currency="+currency);
 
 		// do fetch and map result
-		final SimpleRateDTO simpleRate = spec.retrieve().toEntity(SimpleRateDTO.class).block().getBody();
+		final SimpleRateDto simpleRate = spec.retrieve().toEntity(SimpleRateDto.class).block().getBody();
 
 
 		return simpleRate;
 	}
 
-	public List<SimpleRateDTO> getAllRates(String currency) {
+	public List<SimpleRateDto> getAllRates(String currency) {
 
 		final RequestHeadersSpec<?> spec = WebClient.create().get()
-				.uri("http://localhost:8080/v1/crypto/rates?currency="+currency);
+				.uri("http://localhost:8080/v1/crypto/rates?currency=" + currency);
 
 		// do fetch and map result
-		final List<SimpleRateDTO> allRates = spec.retrieve().toEntityList(SimpleRateDTO.class).block().getBody();
+		final List<SimpleRateDto> allRates = spec.retrieve().toEntityList(SimpleRateDto.class).block().getBody();
 
 
 		return allRates;
 	}
 
-	public List<SimpleRateDTO> getRateForAllCurrencies(String coinId) {
+	public List<SimpleRateDto> getRateForAllCurrencies(String coinId) {
 
 		final RequestHeadersSpec<?> spec = WebClient.create().get()
-				.uri("http://localhost:8080/v1/crypto/rates?coinId="+coinId);
+				.uri("http://localhost:8080/v1/crypto/rates?coinId=" + coinId);
 
 		// do fetch and map result
-		final List<SimpleRateDTO> allCurrencies = spec.retrieve().toEntityList(SimpleRateDTO.class).block().getBody();
+		final List<SimpleRateDto> allCurrencies = spec.retrieve().toEntityList(SimpleRateDto.class).block().getBody();
 
 
 		return allCurrencies;
 	}
 
-	public List<CoinDTO> getCoins() {
+	public List<CoinDto> getCoins() {
 
 		final RequestHeadersSpec<?> spec = WebClient.create().get()
 				.uri("http://localhost:8080/v1/crypto/coins");
 
 		// do fetch and map result
-		final List<CoinDTO> coins = spec.retrieve().toEntityList(CoinDTO.class).block().getBody();
+		final List<CoinDto> coins = spec.retrieve().toEntityList(CoinDto.class).block().getBody();
 
 
 		return coins;
 	}
 
-	public List<CurrencyDTO> getCurrencies() {
+	public List<CurrencyDto> getCurrencies() {
 
 		final RequestHeadersSpec<?> spec = WebClient.create().get()
 				.uri("http://localhost:8080/v1/crypto/currencies");
 
 		// do fetch and map result
-		final List<CurrencyDTO> currencies = spec.retrieve().toEntityList(CurrencyDTO.class).block().getBody();
+		final List<CurrencyDto> currencies = spec.retrieve().toEntityList(CurrencyDto.class).block().getBody();
 
 
 		return currencies;

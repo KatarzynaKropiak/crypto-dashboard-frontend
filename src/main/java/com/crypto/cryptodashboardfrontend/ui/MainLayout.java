@@ -20,6 +20,7 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
 	private final RouterLink coinRates;
 	private final RouterLink wallets;
 	private final RouterLink news;
+	private final RouterLink assets;
 
 	public MainLayout() {
 		// Navigation
@@ -27,9 +28,10 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
 		coinRates = new RouterLink("Coin Rates", CoinRatesView.class);
 		wallets = new RouterLink("Wallets", WalletView.class);
 		news = new RouterLink("News", NewsView.class);
+		assets = new RouterLink("Assets", AssetView.class);
 
 		final UnorderedList list = new UnorderedList(new ListItem(home), new ListItem(coinRates), new ListItem(wallets),
-				new ListItem(news));
+				new ListItem(news), new ListItem(assets));
 		final Nav navigation = new Nav(list);
 		addToDrawer(navigation);
 		setPrimarySection(Section.DRAWER);
@@ -42,7 +44,7 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
 	}
 
 	private RouterLink[] getRouterLinks() {
-		return new RouterLink[] { home, coinRates, wallets, news };
+		return new RouterLink[] { home, coinRates, wallets, news, assets };
 	}
 
 	@Override

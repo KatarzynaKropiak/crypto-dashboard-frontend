@@ -35,6 +35,11 @@ public class HomeView extends Main {
 			new Paragraph(
 					"Click above to see the News")));
 
+		add(new Section(
+				new H2(new RouterLink("Assets", AssetView.class)),
+				new Paragraph(
+						"Click above to see Assets")));
+
 
 	}
 }

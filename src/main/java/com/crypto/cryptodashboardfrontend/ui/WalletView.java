@@ -2,9 +2,8 @@ package com.crypto.cryptodashboardfrontend.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.crypto.cryptodashboardfrontend.data.AssetDTO;
-import com.crypto.cryptodashboardfrontend.data.SimpleRateDTO;
-import com.crypto.cryptodashboardfrontend.data.WalletDTO;
+import com.crypto.cryptodashboardfrontend.data.AssetDto;
+import com.crypto.cryptodashboardfrontend.data.WalletDto;
 import com.crypto.cryptodashboardfrontend.data.WalletService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -21,12 +20,12 @@ public class WalletView extends Main {
 
 	public WalletView(@Autowired WalletService service) {
 
-		final Grid<WalletDTO> walletsGrid = new Grid<WalletDTO>(WalletDTO.class);
+		final Grid<WalletDto> walletsGrid = new Grid<WalletDto>(WalletDto.class);
 		final TextField userName = new TextField("User Name");
 		final TextField email = new TextField("Email");
 
-		final Select<WalletDTO> walletSelect = new Select<WalletDTO>();
-		walletSelect.setItemLabelGenerator(WalletDTO::getwalletId);
+		final Select<WalletDto> walletSelect = new Select<WalletDto>();
+		walletSelect.setItemLabelGenerator(WalletDto::getWalletId);
 		walletSelect.setItems(service.getAllWallets());
 
 		final Button addWallet = new Button("Add a new wallet",
@@ -38,15 +37,15 @@ public class WalletView extends Main {
 				e -> walletsGrid.setItems(service.getAllWallets()));
 		fetchAllWallets.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-		final Grid<AssetDTO> assetsGrid = new Grid<AssetDTO>(AssetDTO.class);
+		final Grid<AssetDto> assetsGrid = new Grid<AssetDto>(AssetDto.class);
 
 		final Button fetchWallet = new Button("Fetch wallet's assets",
-				e -> assetsGrid.setItems(service.getWalletAssets(walletSelect.getValue().getwalletId())));
+				e -> assetsGrid.setItems(service.getWalletAssets(walletSelect.getValue().getWalletId())));
 		fetchWallet.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
 		final Button removeWallet = new Button("Remove a wallet",
 				e -> {
-					service.deleteWallet(walletSelect.getValue().getwalletId());
+					service.deleteWallet(walletSelect.getValue().getWalletId());
 					walletSelect.setItems(service.getAllWallets());
 				});
 		removeWallet.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
